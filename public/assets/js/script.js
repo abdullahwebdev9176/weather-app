@@ -7,6 +7,21 @@ const tempDate = document.getElementById('temp-date');
 
 const apiKey = '98cceee6ebd945b0af0204952251704';
 
+const showDefaultDateAndDay = () => {
+    tempValue.innerText = 0;
+    const localDate = new Date();
+
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayName = days[localDate.getDay()];
+    tempDay.innerText = dayName;
+
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = localDate.toLocaleDateString('en-US', options);
+    tempDate.innerText = formattedDate;
+};
+
+showDefaultDateAndDay();
+
 const getInfo = async (event) => {
     event.preventDefault();
 
@@ -22,18 +37,6 @@ const getInfo = async (event) => {
 
         tempValue.innerText = data.current.temp_c;
         cityOutput.innerText = data.location.name;
-
-        const localDate = new Date(data.location.localtime);
-
-        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        const dayName = days[localDate.getDay()];
-        tempDay.innerText = dayName;
-
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const formattedDate = localDate.toLocaleDateString(undefined, options);
-        tempDate.innerText = formattedDate;
-
-        // console.log(data);
     }
 };
 
